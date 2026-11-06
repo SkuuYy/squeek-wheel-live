@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="squeekchain-project" content="1f45bb4d-6972-4f4f-946f-0c0fff31042b">
+<title>Squeek Wheel - Live</title>
+<style>
+body{font-family:Arial,sans-serif;background:#0f0f1a;color:white;text-align:center;padding:20px}
+h1{color:#ffd700}
+#wheel{width:300px;height:300px;border-radius:50%;border:8px solid #ffd700;margin:20px auto;position:relative;overflow:hidden;transition:transform 4s cubic-bezier(0.15,0.9,0.25,1)}
+.segment{position:absolute;width:50%;height:50%;top:0;left:50%;transform-origin:0 100%;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#000}
+button{background:#ffd700;border:none;padding:15px 30px;font-size:18px;font-weight:bold;border-radius:30px;cursor:pointer}
+#result{font-size:22px;margin-top:20px;color:#ffd700}
+</style>
+</head>
+<body>
+<h1>🐹 SQUEEK WHEEL</h1>
+<p>Live Wheel Spin Game for Squeekchain</p>
+<div id="wheel"></div>
+<button onclick="spin()">SPIN NOW!</button>
+<div id="result">Good luck!</div>
+<script>
+const prizes=["100 SQK","50 SQK","10 SQK","TRY AGAIN","500 SQK","20 SQK","JACKPOT","5 SQK"];
+const colors=["#ff6b6b","#ffd93d","#6bcb77","#4d96ff","#ff9f45","#b983ff","#ff6b9d","#00d2d3"];
+const wheel=document.getElementById('wheel');
+prizes.forEach((p,i)=>{
+  const seg=document.createElement('div');
+  seg.className='segment';
+  seg.style.background=colors[i];
+  seg.style.transform=rotate(${i*45}deg);
+  seg.innerHTML=<span style="transform:rotate(45deg) translate(20px,-10px)">${p}</span>;
+  wheel.appendChild(seg);
+});
+let deg=0;
+function spin(){
+  deg+=360*5+Math.floor(Math.random()*360);
+  wheel.style.transform=rotate(${deg}deg);
+  setTimeout(()=>{
+    const idx=Math.floor(((360-(deg%360))%360)/45);
+    document.getElementById('result').innerText='You win: '+prizes[idx]+' 🎉';
+  },4100);
+}
+</script>
+</body>
+</html>
